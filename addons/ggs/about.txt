@@ -1,6 +1,6 @@
 *--------------------------------*
 |                                |
-|  Godot Game Settings - v3.2.0  |
+|  Godot Game Settings - v3.3.0  |
 |                                |
 *--------------------------------*
 Documentation:
