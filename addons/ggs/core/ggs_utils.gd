@@ -1,9 +1,9 @@
 @tool
 extends RefCounted
-## Provides utility methods used throughout GGS.
 
+## Provides utility methods related to engine types.
 class Type:
-	const _NAME_MAP: Dictionary = {
+	static var _names: Dictionary[Variant.Type, String] = {
 		TYPE_BOOL: "bool",
 		TYPE_INT: "int",
 		TYPE_FLOAT: "float",
@@ -44,48 +44,7 @@ class Type:
 		TYPE_PACKED_COLOR_ARRAY: "PackedColorArray",
 	}
 
-	const _HINT_MAP: Dictionary = {
-		PROPERTY_HINT_NONE: "None",
-		PROPERTY_HINT_RANGE: "Range",
-		PROPERTY_HINT_ENUM: "Enum",
-		PROPERTY_HINT_ENUM_SUGGESTION: "Enum Suggestion",
-		PROPERTY_HINT_EXP_EASING: "Exp Easing",
-		PROPERTY_HINT_LINK: "Link",
-		PROPERTY_HINT_FLAGS: "Flags",
-		PROPERTY_HINT_LAYERS_2D_RENDER: "Layers 2D Render",
-		PROPERTY_HINT_LAYERS_2D_PHYSICS: "Layers 2D Physics",
-		PROPERTY_HINT_LAYERS_2D_NAVIGATION: "Layers 2D Navigation",
-		PROPERTY_HINT_LAYERS_3D_RENDER: "Layers 3D Render",
-		PROPERTY_HINT_LAYERS_3D_PHYSICS: "Layers 3D Physics",
-		PROPERTY_HINT_LAYERS_3D_NAVIGATION: "Layers 3D Navigation",
-		PROPERTY_HINT_LAYERS_AVOIDANCE: "Layers Avoidance",
-		PROPERTY_HINT_FILE: "File",
-		PROPERTY_HINT_DIR: "Dir",
-		PROPERTY_HINT_GLOBAL_FILE: "Global File",
-		PROPERTY_HINT_GLOBAL_DIR: "Global Dir",
-		PROPERTY_HINT_RESOURCE_TYPE: "Resource Type",
-		PROPERTY_HINT_MULTILINE_TEXT: "Multiline Text",
-		PROPERTY_HINT_EXPRESSION: "Expression",
-		PROPERTY_HINT_PLACEHOLDER_TEXT: "Placeholder Text",
-		PROPERTY_HINT_COLOR_NO_ALPHA: "Color No Alpha",
-		PROPERTY_HINT_OBJECT_ID: "Object ID",
-		PROPERTY_HINT_TYPE_STRING: "Type String",
-		PROPERTY_HINT_NODE_PATH_TO_EDITED_NODE: "_NODE_PATH_TO_EDITED_NODE (DEPRECATED)",
-		PROPERTY_HINT_OBJECT_TOO_BIG: "Object too Big",
-		PROPERTY_HINT_NODE_PATH_VALID_TYPES: "NodePath Valid Types",
-		PROPERTY_HINT_SAVE_FILE: "Save File",
-		PROPERTY_HINT_GLOBAL_SAVE_FILE: "Global Save File",
-		PROPERTY_HINT_INT_IS_OBJECTID: "_INT_IS_OBJECTID (DEPRECATED)",
-		PROPERTY_HINT_INT_IS_POINTER: "Int is Pointer",
-		PROPERTY_HINT_ARRAY_TYPE: "Array Type",
-		PROPERTY_HINT_LOCALE_ID: "Locale ID",
-		PROPERTY_HINT_LOCALIZABLE_STRING: "Localizable String",
-		PROPERTY_HINT_NODE_TYPE: "Node Type",
-		PROPERTY_HINT_HIDE_QUATERNION_EDIT: "Hide Quaternion Edit",
-		PROPERTY_HINT_PASSWORD: "Password",
-	}
-
-	var _DEFAULT_MAP: Dictionary = {
+	static var _default_values: Dictionary[Variant.Type, Variant] = {
 		TYPE_BOOL: false,
 		TYPE_INT: 0,
 		TYPE_FLOAT: 0.0,
@@ -126,108 +85,199 @@ class Type:
 		TYPE_PACKED_COLOR_ARRAY: PackedVector4Array(),
 	}
 
-	## Returns the Editor icon associated with the given [param type].
-	static func get_icon(type: Variant.Type) -> Texture2D:
-		var BaseControl: Control
-		if Engine.is_editor_hint():
-			var editor_interface: Object = Engine.get_singleton("EditorInterface")
-			BaseControl = editor_interface.get_base_control()
+	static var _associated_hints: Dictionary[Variant.Type, Array] = {
+		TYPE_FLOAT: [
+			PROPERTY_HINT_RANGE,
+			PROPERTY_HINT_EXP_EASING,
+		],
+		TYPE_INT: [
+			PROPERTY_HINT_RANGE,
+			PROPERTY_HINT_ENUM,
+			PROPERTY_HINT_FLAGS,
+			PROPERTY_HINT_LAYERS_2D_RENDER,
+			PROPERTY_HINT_LAYERS_2D_PHYSICS,
+			PROPERTY_HINT_LAYERS_2D_NAVIGATION,
+			PROPERTY_HINT_LAYERS_3D_RENDER,
+			PROPERTY_HINT_LAYERS_3D_PHYSICS,
+			PROPERTY_HINT_LAYERS_3D_NAVIGATION,
+			PROPERTY_HINT_LAYERS_AVOIDANCE,
+			PROPERTY_HINT_OBJECT_ID,
+			PROPERTY_HINT_INT_IS_POINTER,
+		],
+		TYPE_STRING: [
+			PROPERTY_HINT_ENUM,
+			PROPERTY_HINT_ENUM_SUGGESTION,
+			PROPERTY_HINT_FILE,
+			PROPERTY_HINT_DIR,
+			PROPERTY_HINT_GLOBAL_FILE,
+			PROPERTY_HINT_GLOBAL_DIR,
+			PROPERTY_HINT_MULTILINE_TEXT,
+			PROPERTY_HINT_EXPRESSION,
+			PROPERTY_HINT_PLACEHOLDER_TEXT,
+			PROPERTY_HINT_TYPE_STRING,
+			PROPERTY_HINT_NODE_PATH_VALID_TYPES,
+			PROPERTY_HINT_SAVE_FILE,
+			PROPERTY_HINT_GLOBAL_SAVE_FILE,
+			PROPERTY_HINT_LOCALE_ID,
+			PROPERTY_HINT_PASSWORD,
+			PROPERTY_HINT_INPUT_NAME,
+			PROPERTY_HINT_FILE_PATH,
+		],
+		TYPE_VECTOR2: [
+			PROPERTY_HINT_LINK,
+		],
+		TYPE_VECTOR2I: [
+			PROPERTY_HINT_LINK,
+		],
+		TYPE_VECTOR3: [
+			PROPERTY_HINT_LINK,
+		],
+		TYPE_VECTOR3I: [
+			PROPERTY_HINT_LINK,
+		],
+		TYPE_VECTOR4: [
+			PROPERTY_HINT_LINK,
+		],
+		TYPE_VECTOR4I: [
+			PROPERTY_HINT_LINK,
+		],
+		TYPE_OBJECT: [
+			PROPERTY_HINT_RESOURCE_TYPE,
+			PROPERTY_HINT_OBJECT_TOO_BIG,
+			PROPERTY_HINT_NODE_TYPE,
+		],
+		TYPE_COLOR: [
+			PROPERTY_HINT_COLOR_NO_ALPHA,
+		],
+		TYPE_ARRAY: [
+			PROPERTY_HINT_TYPE_STRING,
+			PROPERTY_HINT_ARRAY_TYPE,
+		],
+		TYPE_DICTIONARY: [
+			PROPERTY_HINT_TYPE_STRING,
+			PROPERTY_HINT_DICTIONARY_TYPE,
+			PROPERTY_HINT_LOCALIZABLE_STRING,
+		],
+		TYPE_QUATERNION: [
+			PROPERTY_HINT_HIDE_QUATERNION_EDIT,
+		],
+		TYPE_CALLABLE: [
+			PROPERTY_HINT_TOOL_BUTTON,
+		],
+		TYPE_BOOL: [
+			PROPERTY_HINT_GROUP_ENABLE,
+		],
+		TYPE_STRING_NAME: [
+			PROPERTY_HINT_INPUT_NAME,
+		]
+	}
 
-		if BaseControl == null:
+
+	## Returns the string representation of the given type.
+	static func get_name(type: Variant.Type) -> String:
+		return _names[type]
+
+
+	## Returns the editor icon associated with a given type.
+	static func get_icon(type: Variant.Type) -> Texture2D:
+		if not Engine.is_editor_hint():
 			return null
 
-		var type_string: String = ALL_TYPES[type]
-		return BaseControl.get_theme_icon(type_string, "EditorIcons")
+		var editor_interface: EditorInterface = Engine.get_singleton("EditorInterface") as EditorInterface
+		var base_control: Control = editor_interface.get_base_control()
+		return base_control.get_theme_icon(get_name(type), "EditorIcons")
 
 
-	## Returns [PropertyHints] associated with the given [param type].
-	static func type_get_compatible_hints(type: Variant.Type) -> PackedStringArray:
-		var result: PackedStringArray
-		var temp: PackedInt32Array
-
-		temp.append(PROPERTY_HINT_NONE)
-		match type:
-			TYPE_FLOAT:
-				temp.append(PROPERTY_HINT_RANGE)
-				temp.append(PROPERTY_HINT_EXP_EASING)
-
-			TYPE_INT:
-				temp.append(PROPERTY_HINT_RANGE)
-				temp.append(PROPERTY_HINT_ENUM)
-				temp.append(PROPERTY_HINT_FLAGS)
-				temp.append(PROPERTY_HINT_LAYERS_2D_RENDER)
-				temp.append(PROPERTY_HINT_LAYERS_2D_PHYSICS)
-				temp.append(PROPERTY_HINT_LAYERS_2D_NAVIGATION)
-				temp.append(PROPERTY_HINT_LAYERS_3D_RENDER)
-				temp.append(PROPERTY_HINT_LAYERS_3D_PHYSICS)
-				temp.append(PROPERTY_HINT_LAYERS_3D_NAVIGATION)
-				temp.append(PROPERTY_HINT_LAYERS_AVOIDANCE)
-				temp.append(PROPERTY_HINT_INT_IS_POINTER)
-
-			TYPE_STRING:
-				temp.append(PROPERTY_HINT_ENUM)
-				temp.append(PROPERTY_HINT_ENUM_SUGGESTION)
-				temp.append(PROPERTY_HINT_FILE)
-				temp.append(PROPERTY_HINT_DIR)
-				temp.append(PROPERTY_HINT_GLOBAL_FILE)
-				temp.append(PROPERTY_HINT_GLOBAL_DIR)
-				temp.append(PROPERTY_HINT_MULTILINE_TEXT)
-				temp.append(PROPERTY_HINT_EXPRESSION)
-				temp.append(PROPERTY_HINT_PLACEHOLDER_TEXT)
-				temp.append(PROPERTY_HINT_TYPE_STRING)
-				temp.append(PROPERTY_HINT_SAVE_FILE)
-				temp.append(PROPERTY_HINT_GLOBAL_SAVE_FILE)
-				temp.append(PROPERTY_HINT_LOCALE_ID)
-				temp.append(PROPERTY_HINT_PASSWORD)
-
-			TYPE_VECTOR2, TYPE_VECTOR2I, TYPE_VECTOR3, TYPE_VECTOR3I, TYPE_VECTOR4, TYPE_VECTOR4I:
-				temp.append(PROPERTY_HINT_LINK)
-
-			TYPE_VECTOR2:
-				temp.append(PROPERTY_HINT_LINK)
-
-			TYPE_OBJECT:
-				temp.append(PROPERTY_HINT_RESOURCE_TYPE)
-				temp.append(PROPERTY_HINT_OBJECT_ID)
-				temp.append(PROPERTY_HINT_OBJECT_TOO_BIG)
-				temp.append(PROPERTY_HINT_NODE_TYPE)
-
-			TYPE_COLOR:
-				temp.append(PROPERTY_HINT_COLOR_NO_ALPHA)
-
-			TYPE_ARRAY:
-				temp.append(PROPERTY_HINT_TYPE_STRING)
-				temp.append(PROPERTY_HINT_ARRAY_TYPE)
-
-			TYPE_NODE_PATH:
-				temp.append(PROPERTY_HINT_NODE_PATH_VALID_TYPES)
-
-			TYPE_DICTIONARY:
-				temp.append(PROPERTY_HINT_LOCALIZABLE_STRING)
-
-			TYPE_QUATERNION:
-				temp.append(PROPERTY_HINT_HIDE_QUATERNION_EDIT)
-
-		for hint: PropertyHint in temp:
-			result.append(ALL_HINTS[hint])
-
-		return result
+	## Returns the default value of the given type.
+	static func get_default_value(type: Variant.Type) -> Variant:
+		return _default_values[type]
 
 
-## Clamps game window size to the current screen size. Used when window
-## scale would resize the window to something larger than the user's screen.
-static func window_clamp_to_screen(size: Vector2) -> Vector2:
-	var screen_id: int = DisplayServer.window_get_current_screen()
-	var screen_size: Rect2i = DisplayServer.screen_get_usable_rect(screen_id)
+	## Returns property hints associated with the given type.
+	static func get_associated_hints(type: Variant.Type) -> PackedInt32Array:
+		var hints: PackedInt32Array = [PROPERTY_HINT_NONE, PROPERTY_HINT_ONESHOT]
+		hints.append_array(_associated_hints[type])
+		return hints
+	
 
-	return size.clamp(size, screen_size.size)
+	## Returns the name of property hints associated with the given type.
+	static func get_associated_hints_names(type: Variant.Type) -> PackedStringArray:
+		var hints: PackedInt32Array = get_associated_hints(type)
+		var hint_names: PackedStringArray
+		for hint in hints:
+			hint_names.append(Hint.get_name(hint))
+		return hint_names
 
 
-## Centers game window on the current screen.
-static func window_center() -> void:
-	var screen_id: int = DisplayServer.window_get_current_screen()
-	var screen_size: Rect2i = DisplayServer.screen_get_usable_rect(screen_id)
-	var window_size: Vector2i = DisplayServer.window_get_size()
-	var origin: Vector2i = DisplayServer.screen_get_position(screen_id)
-	var target_pos: Vector2 = origin + (screen_size.size / 2) - (window_size / 2)
-	DisplayServer.window_set_position(target_pos)
+## Provides utility methods related to engine property hints.
+class Hint:
+	static var _names: Dictionary[PropertyHint, String] = {
+		PROPERTY_HINT_NONE: "None",
+		PROPERTY_HINT_RANGE: "Range",
+		PROPERTY_HINT_ENUM: "Enum",
+		PROPERTY_HINT_ENUM_SUGGESTION: "Enum Suggestion",
+		PROPERTY_HINT_EXP_EASING: "Exp Easing",
+		PROPERTY_HINT_LINK: "Link",
+		PROPERTY_HINT_FLAGS: "Flags",
+		PROPERTY_HINT_LAYERS_2D_RENDER: "Layers 2D Render",
+		PROPERTY_HINT_LAYERS_2D_PHYSICS: "Layers 2D Physics",
+		PROPERTY_HINT_LAYERS_2D_NAVIGATION: "Layers 2D Navigation",
+		PROPERTY_HINT_LAYERS_3D_RENDER: "Layers 3D Render",
+		PROPERTY_HINT_LAYERS_3D_PHYSICS: "Layers 3D Physics",
+		PROPERTY_HINT_LAYERS_3D_NAVIGATION: "Layers 3D Navigation",
+		PROPERTY_HINT_LAYERS_AVOIDANCE: "Layers Avoidance",
+		PROPERTY_HINT_FILE: "File",
+		PROPERTY_HINT_DIR: "Dir",
+		PROPERTY_HINT_GLOBAL_FILE: "Global File",
+		PROPERTY_HINT_GLOBAL_DIR: "Global Dir",
+		PROPERTY_HINT_RESOURCE_TYPE: "Resource Type",
+		PROPERTY_HINT_MULTILINE_TEXT: "Multiline Text",
+		PROPERTY_HINT_EXPRESSION: "Expression",
+		PROPERTY_HINT_PLACEHOLDER_TEXT: "Placeholder Text",
+		PROPERTY_HINT_COLOR_NO_ALPHA: "Color No Alpha",
+		PROPERTY_HINT_OBJECT_ID: "Object ID",
+		PROPERTY_HINT_TYPE_STRING: "Type String",
+		PROPERTY_HINT_OBJECT_TOO_BIG: "Object too Big",
+		PROPERTY_HINT_NODE_PATH_VALID_TYPES: "NodePath Valid Types",
+		PROPERTY_HINT_SAVE_FILE: "Save File",
+		PROPERTY_HINT_GLOBAL_SAVE_FILE: "Global Save File",
+		PROPERTY_HINT_INT_IS_POINTER: "Int is Pointer",
+		PROPERTY_HINT_ARRAY_TYPE: "Array Type",
+		PROPERTY_HINT_DICTIONARY_TYPE: "Dictionary Type",
+		PROPERTY_HINT_LOCALE_ID: "Locale ID",
+		PROPERTY_HINT_LOCALIZABLE_STRING: "Localizable String",
+		PROPERTY_HINT_NODE_TYPE: "Node Type",
+		PROPERTY_HINT_HIDE_QUATERNION_EDIT: "Hide Quaternion Edit",
+		PROPERTY_HINT_PASSWORD: "Password",
+		PROPERTY_HINT_TOOL_BUTTON: "Tool Button",
+		PROPERTY_HINT_ONESHOT: "One Shot",
+		PROPERTY_HINT_GROUP_ENABLE: "Group Enable",
+		PROPERTY_HINT_INPUT_NAME: "Input Name",
+		PROPERTY_HINT_FILE_PATH: "File Path",
+	}
+
+	## Returns the string representation of the given property hint.
+	static func get_name(hint: PropertyHint) -> String:
+		return _names[hint]
+
+
+## Provides utility methods related to the game window.
+class GameWindow:
+	## Centers game window on the current screen.
+	static func center() -> void:
+		var screen_id: int = DisplayServer.window_get_current_screen()
+		var screen_position: Vector2i = DisplayServer.screen_get_position(screen_id)
+		var screen_center: Vector2i = DisplayServer.screen_get_usable_rect(screen_id).size / 2
+		var window_center: Vector2i = DisplayServer.window_get_size() / 2
+		var target_position: Vector2 = screen_position + screen_center - window_center
+		DisplayServer.window_set_position(target_position)
+
+
+	## Clamps the game window to the current screen size.
+	static func clamp_to_screen() -> void:
+		var screen_id: int = DisplayServer.window_get_current_screen()
+		var screen_size: Vector2i = DisplayServer.screen_get_usable_rect(screen_id).size
+		var window_size: Vector2i = DisplayServer.window_get_size()
+		var window_width: int = mini(screen_size.x, window_size.x)
+		var window_height: int = mini(screen_size.y, window_size.y)
+		DisplayServer.window_set_size(Vector2i(window_width, window_height))
