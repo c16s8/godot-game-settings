@@ -22,7 +22,7 @@ buses/default_bus_layout=""
 
 [autoload]
 
-GGS="*res://addons/ggs/plugin/singleton/ggs.tscn"
+GGSManager="*res://addons/ggs/core/manager/ggs_manager.tscn"
 
 [debug]
 
