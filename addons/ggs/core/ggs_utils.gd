@@ -169,7 +169,7 @@ class Type:
 		],
 		TYPE_STRING_NAME: [
 			PROPERTY_HINT_INPUT_NAME,
-		]
+		],
 	}
 
 
