@@ -1,22 +1,11 @@
 @tool
 extends EditorPlugin
 
-const _MANAGER_NAME: String = "GGSManager"
+const _MANAGER_NAME: String = "GGSRuntimeManager"
 const _MANAGER_UID: String = "uid://esw7j7or7gpd"
-
-var _inspector_plugin: EditorInspectorPlugin = ggsInspectorPlugin.new()
 
 
 func _enter_tree() -> void:
-	_add_singleton()
-	add_inspector_plugin(_inspector_plugin)
-
-
-func _exit_tree() -> void:
-	remove_inspector_plugin(_inspector_plugin)
-
-
-func _add_singleton() -> void:
 	if ProjectSettings.has_setting("autoload/" + _MANAGER_NAME):
 		return
 	
