@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GGSInputGlyphDB" load_steps=2 format=3 uid="uid://rnyvstcxehvv"]
+
+[ext_resource type="Script" uid="uid://dgwfwelnb4jy0" path="res://addons/ggs/core/input_databases/input_glyph_db.gd" id="1_u3p2c"]
+
+[resource]
+script = ExtResource("1_u3p2c")
+metadata/_custom_type_script = "uid://dgwfwelnb4jy0"

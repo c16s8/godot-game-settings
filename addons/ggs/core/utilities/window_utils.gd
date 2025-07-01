@@ -1,7 +1,7 @@
 @tool
 extends RefCounted
-class_name WindowUtils
-## Provides utility methods for managing the game window.
+class_name GGSWindowUtils
+## Provides simple game window utilities.
 
 ## Centers game window on the current screen.
 static func center() -> void:

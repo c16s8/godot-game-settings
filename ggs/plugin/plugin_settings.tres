@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GGSPluginSettings" load_steps=2 format=3 uid="uid://dhewfdfjnlrvc"]
+
+[ext_resource type="Script" uid="uid://dkp8812ehmesd" path="res://addons/ggs/core/plugin_settings.gd" id="1_677d5"]
+
+[resource]
+script = ExtResource("1_677d5")
+text_db = "uid://djbybuptgj4yj"
+glyph_db = "uid://rnyvstcxehvv"
+metadata/_custom_type_script = "uid://bnm32mu5imjv0"

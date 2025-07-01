@@ -8,15 +8,6 @@ extends Node
 ## from.
 signal setting_applied(setting: String, value: Variant)
 
-## Base directory where the save file will be saved.
-const BASE_PATH: String = "user://"
-
-## Name of the config _file that will be used to save and load game settings.
-@export var config_file: String = "settings.cfg"
-
-## Location of your setting resources.
-@export_dir var settings_dir: String = "res://game_settings"
-
 @export_group("Input Preferences")
 ## Time the input component listens for input. When this expires, it
 ## automatically stops listening for input.
@@ -36,11 +27,6 @@ var accept_delay: float = 0.33
 ## input. A higher value means slower animation.
 @export var anim_speed: float = 1.5
 
-## The default glyph type that should be used when no gamepad device is
-## connected or the device is not recognized.
-@export_custom(PROPERTY_HINT_ENUM, "other,xbox,ps,switch")
-var default_glyph: String = "other"
-
 var _file_path: String
 var _file: ConfigFile = ConfigFile.new()
 var _settings: Array[GGSSetting]
@@ -50,32 +36,12 @@ var _settings: Array[GGSSetting]
 
 
 func _ready() -> void:
-	if not DirAccess.dir_exists_absolute(settings_dir):
-		DirAccess.make_dir_absolute(settings_dir)
-
-		if Engine.is_editor_hint():
-			var editor_interface: Object = Engine.get_singleton("EditorInterface")
-			editor_interface.get_resource_filesystem().scan()
-
 	_settings = _get_all_settings()
 	_file_init()
 	_file_clean_up()
 
 	if not Engine.is_editor_hint():
 		_apply_all()
-
-
-## Saves the provided [param value] in the provided [param setting] key of
-## the save file.
-func set_value(setting: GGSSetting, value: Variant) -> void:
-	_file.set_value(setting.section, setting.key, value)
-	_file.save(_file_path)
-
-
-## Loads the current value of the provided [param setting] from the save
-## file. Returns the setting's default if its key doesn't exist.
-func get_value(setting: GGSSetting) -> Variant:
-	return _file.get_value(setting.section, setting.key, setting.default)
 
 
 func _get_all_settings() -> Array[GGSSetting]:
