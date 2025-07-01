@@ -1,10 +1,17 @@
 [gd_scene load_steps=2 format=3 uid="uid://esw7j7or7gpd"]
 
-[ext_resource type="Script" uid="uid://dh1wuc5ss3x1t" path="res://addons/ggs/core/runtime_manager/runtime_manager.gd" id="1_6v3cu"]
+[ext_resource type="Script" uid="uid://dh1wuc5ss3x1t" path="res://addons/ggs/core/manager/manager.gd" id="1_6v3cu"]
 
-[node name="GGS" type="Node"]
+[node name="GGS" type="Node" node_paths=PackedStringArray("audio_players")]
 script = ExtResource("1_6v3cu")
-default_glyph = " xbox"
+audio_players = {
+"activation_failed": NodePath("Audio/ActivationFailed"),
+"activation_suceeded": NodePath("Audio/ActivationSucceeded"),
+"focus_entered": NodePath("Audio/FocusEntered"),
+"focus_exited": NodePath("Audio/FocusExited"),
+"mouse_entered": NodePath("Audio/MouseEntered"),
+"mouse_exited": NodePath("Audio/MouseExited")
+}
 
 [node name="Audio" type="Node" parent="."]
 
@@ -19,5 +26,3 @@ default_glyph = " xbox"
 [node name="ActivationSucceeded" type="AudioStreamPlayer" parent="Audio"]
 
 [node name="ActivationFailed" type="AudioStreamPlayer" parent="Audio"]
-
-[node name="InputAccepted" type="AudioStreamPlayer" parent="Audio"]

@@ -43,7 +43,7 @@ const MODIFIERS_MASK: int = KEY_MASK_SHIFT | KEY_MASK_CTRL | KEY_MASK_ALT
 static func serialize_event(event: InputEvent) -> Array:
 	var type: int = -1
 	var id: int = -1
-	var axis_dir: int = -1
+	var axis_dir: int = 0
 
 	if event is InputEventKey:
 		type = InputType.KEYBOARD

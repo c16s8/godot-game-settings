@@ -22,7 +22,7 @@ buses/default_bus_layout=""
 
 [autoload]
 
-GGSRuntimeManager="*res://addons/ggs/core/runtime_manager/runtime_manager.tscn"
+GGSManager="*res://addons/ggs/core/manager/manager.tscn"
 
 [debug]
 

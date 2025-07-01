@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bnmkvxho0hf14"]
+
+[ext_resource type="Script" uid="uid://budwe14cqu4ih" path="res://ggs/game_settings/audio/scripts/setting_audio_mute.gd" id="1_qplap"]
+
+[resource]
+resource_name = "master_mute"
+script = ExtResource("1_qplap")
+audio_bus = "Master"
+default = false
+section = "audio"
+key = "master_mute"

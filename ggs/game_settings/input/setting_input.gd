@@ -25,7 +25,7 @@ func _get_property_list() -> Array:
 			"name": "event_index",
 			"type": TYPE_INT,
 			"hint": PROPERTY_HINT_ENUM,
-			"hint_string": ",".join(_get_current_action_events()),
+			"hint_string": ",".join(_get_action_event_list()),
 		},
 	]
 
@@ -42,7 +42,7 @@ func _set_event_index(value: int) -> void:
 	default = GGSInputUtils.serialize_event(target_event)
 
 
-func apply(value: Array, ..._extra_args: Array) -> void:
+func apply(value: Array) -> void:
 	var event: InputEvent = GGSInputUtils.deserialize_event(value)
 
 	var new_events: Array[InputEvent] = InputMap.action_get_events(action)
@@ -53,10 +53,10 @@ func apply(value: Array, ..._extra_args: Array) -> void:
 	for input_event: InputEvent in new_events:
 		InputMap.action_add_event(action, input_event)
 
-	# GGS.setting_applied.emit(key, value)
+	GGSManager.setting_applied.emit(self, value)
 
 
-func _get_current_action_events() -> PackedStringArray:
+func _get_action_event_list() -> PackedStringArray:
 	if action.is_empty():
 		return []
 
