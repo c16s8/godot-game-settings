@@ -12,9 +12,16 @@ enum InputType {
 }
 
 enum Axis {
-	LS_LEFT, LS_RIGHT, LS_UP, LS_DOWN,
-	RS_LEFT, RS_RIGHT, RS_UP, RS_DOWN,
-	LT, RT
+	LS_LEFT,
+	LS_RIGHT,
+	LS_UP,
+	LS_DOWN,
+	RS_LEFT,
+	RS_RIGHT,
+	RS_UP,
+	RS_DOWN,
+	LT,
+	RT,
 }
 
 const AXIS_MAP: Dictionary = {
@@ -35,53 +42,55 @@ const JOYPAD_DEVICE_ABBREVIATIONS: Dictionary = {
 	"Switch": "switch",
 }
 
-const TEXT_MOUSE: Dictionary = {
-	MOUSE_BUTTON_LEFT: "LMB",
-	MOUSE_BUTTON_RIGHT: "RMB",
-	MOUSE_BUTTON_MIDDLE: "MMB",
-	MOUSE_BUTTON_WHEEL_UP: "MW Up",
-	MOUSE_BUTTON_WHEEL_DOWN: "MW Down",
-	MOUSE_BUTTON_WHEEL_LEFT: "MW Left",
-	MOUSE_BUTTON_WHEEL_RIGHT: "MW Right",
-	MOUSE_BUTTON_XBUTTON1: "MB1",
-	MOUSE_BUTTON_XBUTTON2: "MB2",
-}
-
-const TEXT_XBOX: Dictionary = {
-	JOY_BUTTON_A: "A",
-	JOY_BUTTON_B: "B",
-	JOY_BUTTON_X: "X",
-	JOY_BUTTON_Y: "Y",
-	JOY_BUTTON_BACK: "Back",
-	JOY_BUTTON_GUIDE: "Home",
-	JOY_BUTTON_START: "Start",
-	JOY_BUTTON_LEFT_STICK: "LS",
-	JOY_BUTTON_RIGHT_STICK: "RS",
-	JOY_BUTTON_LEFT_SHOULDER: "LB",
-	JOY_BUTTON_RIGHT_SHOULDER: "RB",
-	JOY_BUTTON_DPAD_UP: "D-Pad Up",
-	JOY_BUTTON_DPAD_DOWN: "D-Pad Down",
-	JOY_BUTTON_DPAD_LEFT: "D-Pad Left",
-	JOY_BUTTON_DPAD_RIGHT: "D-Pad Right",
-	JOY_BUTTON_MISC1: "Share",
-	JOY_BUTTON_PADDLE1: "PAD1",
-	JOY_BUTTON_PADDLE2: "PAD2",
-	JOY_BUTTON_PADDLE3: "PAD3",
-	JOY_BUTTON_PADDLE4: "PAD4",
-	JOY_BUTTON_TOUCHPAD: "Touchpad",
-}
-
-const TEXT_XBOX_AXIS: Dictionary = {
-	Axis.LS_LEFT: "LStick Left",
-	Axis.LS_RIGHT: "LStick Right",
-	Axis.LS_UP: "LStick Up",
-	Axis.LS_DOWN: "LStick Down",
-	Axis.RS_LEFT: "RStick Left",
-	Axis.RS_RIGHT: "RStick Right",
-	Axis.RS_UP: "RStick Up",
-	Axis.RS_DOWN: "RStick Down",
-	Axis.LT: "LT",
-	Axis.RT: "RT",
+const TEXTDB: Dictionary = {
+	"mouse": {
+		MOUSE_BUTTON_LEFT: "LMB",
+		MOUSE_BUTTON_RIGHT: "RMB",
+		MOUSE_BUTTON_MIDDLE: "MMB",
+		MOUSE_BUTTON_WHEEL_UP: "MW Up",
+		MOUSE_BUTTON_WHEEL_DOWN: "MW Down",
+		MOUSE_BUTTON_WHEEL_LEFT: "MW Left",
+		MOUSE_BUTTON_WHEEL_RIGHT: "MW Right",
+		MOUSE_BUTTON_XBUTTON1: "MB1",
+		MOUSE_BUTTON_XBUTTON2: "MB2",
+	},
+	"xbox": {
+		"button": {
+			JOY_BUTTON_A: "A",
+			JOY_BUTTON_B: "B",
+			JOY_BUTTON_X: "X",
+			JOY_BUTTON_Y: "Y",
+			JOY_BUTTON_BACK: "Back",
+			JOY_BUTTON_GUIDE: "Home",
+			JOY_BUTTON_START: "Start",
+			JOY_BUTTON_LEFT_STICK: "LS",
+			JOY_BUTTON_RIGHT_STICK: "RS",
+			JOY_BUTTON_LEFT_SHOULDER: "LB",
+			JOY_BUTTON_RIGHT_SHOULDER: "RB",
+			JOY_BUTTON_DPAD_UP: "D-Pad Up",
+			JOY_BUTTON_DPAD_DOWN: "D-Pad Down",
+			JOY_BUTTON_DPAD_LEFT: "D-Pad Left",
+			JOY_BUTTON_DPAD_RIGHT: "D-Pad Right",
+			JOY_BUTTON_MISC1: "Share",
+			JOY_BUTTON_PADDLE1: "PAD1",
+			JOY_BUTTON_PADDLE2: "PAD2",
+			JOY_BUTTON_PADDLE3: "PAD3",
+			JOY_BUTTON_PADDLE4: "PAD4",
+			JOY_BUTTON_TOUCHPAD: "Touchpad",
+		},
+		"axis": {
+			Axis.LS_LEFT: "LStick Left",
+			Axis.LS_RIGHT: "LStick Right",
+			Axis.LS_UP: "LStick Up",
+			Axis.LS_DOWN: "LStick Down",
+			Axis.RS_LEFT: "RStick Left",
+			Axis.RS_RIGHT: "RStick Right",
+			Axis.RS_UP: "RStick Up",
+			Axis.RS_DOWN: "RStick Down",
+			Axis.LT: "LT",
+			Axis.RT: "RT",
+		}
+	}
 }
 
 const TEXT_PS: Dictionary = {
