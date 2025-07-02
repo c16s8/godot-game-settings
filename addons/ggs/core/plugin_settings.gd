@@ -3,19 +3,25 @@ extends Resource
 class_name GGSPluginSettings
 ## Resource class for storing and managing GGS settings.
 
-## The UID of the plugin settings resource that comes with GGS by default.
-const UID: String = "uid://dhewfdfjnlrvc"
-
 ## The directory where the game setting resources are located.
 @export_dir var settings_directory: String = "res://ggs/game_settings"
 
-@export_group("Joypad")
-## The type that will be used when retrieving text and glyph for joypad input events.
-@export_enum("Xbox","Playstation","Switch") var joypad_device: String = "Xbox"
+
+@export_group("Input")
+## Text and glyphs will be shown in this layout if the connected joypad device is not recognized.
+@export_enum("Xbox","Playstation","Switch") var joypad_fallback_layout: String = "Xbox"
+## Path to the [GGSInputTextDB] that should be used for text data.
 @export_file("*.tres") var text_db: String = "res://ggs/plugin/default_text_db.tres"
+## Path to the [GGSInputGlyphDB] that should be used for image data.
 @export_file("*.tres") var glyph_db: String = "res://ggs/plugin/default_glyph_db.tres"
 
-@export_group("Components")
+
+@export_group("Components", "components_")
+## If true, the setting is applied when components are activated successfully. Otherwise, an ApplyBtn component is required.
+@export var components_apply_on_changed: bool = true
+## If true, the main control node(s) of components will grab focus on mouse over.
+@export var components_grab_focus_on_mouse_over: bool = true
+
 @export_subgroup("Input Button", "input_btn_")
 ## The time the input component listens for input before automatically stopping.
 @export_range(0.001, 4096, 0.001, "exp", "suffix:s") var input_btn_listen_time: float = 3.0

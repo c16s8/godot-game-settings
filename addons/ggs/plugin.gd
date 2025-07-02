@@ -1,7 +1,7 @@
 @tool
 extends EditorPlugin
 
-const _MANAGER_NAME: String = "GGSManager"
+const _MANAGER_NAME: String = "GGS"
 const _MANAGER_UID: String = "uid://esw7j7or7gpd"
 
 

@@ -1,6 +1,7 @@
 @tool
+@abstract
 extends Resource
-abstract class_name GGSSetting
+class_name GGSSetting
 ## A game setting is a resource that contains the necessary information for a specific game
 ## setting such as its default value or its script.
 
@@ -39,7 +40,9 @@ func _get_property_list() -> Array:
 
 func _set_default(value: Variant) -> void:
 	default = value
-	GGSSaveManager.save_setting_value(self, value)
+
+	if not key.is_empty():
+		GGSSaveManager.save_setting_value(self, value)
 
 
 func _set_key(value: String) -> void:
@@ -48,4 +51,4 @@ func _set_key(value: String) -> void:
 
 
 ## This method is called when a setting needs to be applied. In other words, it should contain the setting logic.
-abstract func apply(value) -> void
+@abstract func apply(value) -> void

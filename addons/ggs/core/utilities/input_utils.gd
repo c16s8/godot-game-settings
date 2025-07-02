@@ -36,6 +36,15 @@ const _AXIS_TO_DIRECTION: Dictionary[JoyAxis, Dictionary] = {
 	},
 }
 
+const JOYPAD_DEVICE_LAYOUTS: Dictionary = {
+	"XInput Gamepad": "xbox",
+	"Xbox Series Controller": "xbox",
+	"Sony DualSense": "playstation",
+	"PS5 Controller": "playstation",
+	"PS4 Controller": "playstation",
+	"Switch": "switch",
+}
+
 const MODIFIERS_MASK: int = KEY_MASK_SHIFT | KEY_MASK_CTRL | KEY_MASK_ALT
 
 
@@ -69,7 +78,7 @@ static func serialize_event(event: InputEvent) -> Array:
 static func deserialize_event(data: Array) -> InputEvent:
 	var type: int = data[0]
 	var id: int = data[1]
-	var aux: int = data[2]
+	var axis_dir: int = data[2]
 
 	var event: InputEvent
 	if type == InputType.KEYBOARD:
@@ -93,7 +102,7 @@ static func deserialize_event(data: Array) -> InputEvent:
 	if type == InputType.JOYPAD_MOTION:
 		event = InputEventJoypadMotion.new()
 		event.axis = id
-		event.axis_value = -1 if aux == 1 else 1
+		event.axis_value = axis_dir
 
 	return event
 
@@ -112,11 +121,7 @@ static func action_get_events(action: String) -> Array:
 ## The returned text for joypad events depends on the joypad device selected in the plugin settings.
 static func event_get_text(event: InputEvent) -> String:
 	var text: String = "INVALID EVENT"
-	var plugin_settings: GGSPluginSettings
-	var db: GGSInputTextDB
-	if event is InputEventMouseButton or event is InputEventJoypadButton or event is InputEventJoypadMotion:
-		plugin_settings = load(GGSPluginSettings.UID)
-		db = load(plugin_settings.text_db)
+	var db: GGSInputTextDB = load(GGS.plugin_settings.text_db)
 
 	if event is InputEventKey:
 		var keycode_with_modifiers: int = event.get_physical_keycode_with_modifiers()
@@ -127,13 +132,13 @@ static func event_get_text(event: InputEvent) -> String:
 		text = modifiers_string + db.mouse[event.button_index]
 
 	if event is InputEventJoypadButton:
-		var device: String = plugin_settings.joypad_device.to_lower()
-		var property: String = "%s_button"%[device]
+		var layout: String = _joypad_get_device_layout(event)
+		var property: String = "%s_button"%[layout]
 		text = db.get(property)[event.button_index]
 
 	if event is InputEventJoypadMotion:
-		var device: String = plugin_settings.joypad_device.to_lower()
-		var property: String = "%s_axis"%[device]
+		var layout: String = _joypad_get_device_layout(event)
+		var property: String = "%s_axis"%[layout]
 		var axis_direction: AxisDirection = _event_get_axis_direction(event)
 		text = db.get(property)[axis_direction]
 
@@ -143,21 +148,20 @@ static func event_get_text(event: InputEvent) -> String:
 ## Returns an image representation of the event. Uses  the [GGSInputGlyphDB] selected in the plugin settings for its image data.
 ## The returned image for joypad events depends on the joypad device selected in the plugin settings.
 static func event_get_glyph(event: InputEvent) -> Texture2D:
-	var plugin_settings: GGSPluginSettings = load(GGSPluginSettings.UID)
-	var db: GGSInputGlyphDB = load(plugin_settings.glyph_db)
+	var db: GGSInputGlyphDB = load(GGS.plugin_settings.glyph_db)
 	var glyph: Texture2D = null
 
 	if event is InputEventMouseButton:
 		glyph = db.mouse[event.button_index]
 
 	if event is InputEventJoypadButton:
-		var device: String = plugin_settings.joypad_device.to_lower()
-		var property: String = "%s_button"%[device]
+		var layout: String = _joypad_get_device_layout(event)
+		var property: String = "%s_button"%[layout]
 		glyph = db.get(property)[event.button_index]
 
 	if event is InputEventJoypadMotion:
-		var device: String = plugin_settings.joypad_device.to_lower()
-		var property: String = "%s_axis"%[device]
+		var layout: String = _joypad_get_device_layout(event)
+		var property: String = "%s_axis"%[layout]
 		var axis_direction: AxisDirection = _event_get_axis_direction(event)
 		glyph = db.get(property)[axis_direction]
 
@@ -181,3 +185,11 @@ static func _event_get_modifiers_string(event: InputEventWithModifiers) -> Strin
 static func _event_get_axis_direction(event: InputEventJoypadMotion) -> AxisDirection:
 	var axis_direction: int = sign(event.axis_value) 
 	return _AXIS_TO_DIRECTION[event.axis][axis_direction]
+
+
+static func _joypad_get_device_layout(event: InputEvent) -> String:
+	var device_name: String = Input.get_joy_name(event.device)
+	if JOYPAD_DEVICE_LAYOUTS.has(device_name):
+		return JOYPAD_DEVICE_LAYOUTS[device_name]
+	else:
+		return GGS.plugin_settings.joypad_fallback_layout.to_lower()

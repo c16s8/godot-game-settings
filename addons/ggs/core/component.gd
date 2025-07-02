@@ -1,60 +1,54 @@
 @tool
-@icon("res://addons/ggs/plugin/assets/base_node.svg")
+@abstract
 extends MarginContainer
-class_name ggsComponent
-## Base class for a GGS UI component. Components are user interface nodes
-## that allow the user to change the value of a specific setting.
+class_name GGSComponent
+## A components is a control/user interface nodes that allow the user to change the value of its assigned setting.
 
-const WARNING_NO_SETTING: String = "No setting is assigned."
-const WARNING_INVALID: String = "The assigned setting is invalid. Make sure it's in the settings directory and is saved on disc."
-const WARNING_EMPTY_KEY: String = "Setting key is empty and won't be saved to or loaded from the file."
-const WARNING_INCOMPATIBLE_SETTING: String = "The value type of the assigned setting is not compatible with this component."
+const _WARNING_NO_SETTING: String = "No setting is assigned."
+const _WARNING_INVALID: String = "The assigned setting is invalid. Ensure that it's save on disc and is in the settings directory."
+const _WARNING_EMPTY_KEY: String = "Setting key is empty and won't be saved to or loaded from the file."
+const _WARNING_INCOMPATIBLE_SETTING: String = "The type of the assigned setting is not compatible with this component."
 
-## The setting this component will handle. The setting's
-## [member GGSSetting.value_type] must be in the [member compatible_types]
-## of this component.
+## The setting this component will handle. The setting type must be compatible with the component. See [member compatible_types].
 @export var setting: GGSSetting: set = _set_setting
 
-## If true, the setting is applied when the component is interacted with.
-## Otherwise, an ApplyBtn is needed.
-@export var apply_on_changed: bool
-
-## If true, the main control(s) of the component will grab focus when
-## mouse enters it.
-@export var grab_focus_on_mouse_over: bool = true
+@export_group("Override", "override_")
+## If enabled, plugin settings can be overriden for this specific component.
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "feature") var override_plugin_settings: bool = false
+@export var override_apply_on_changed: bool = false
+@export var override_grab_focus_on_mouse_over: bool = false
 
 ## The current value of the setting associated with this component.
 var value: Variant
-
-## [enum Variant.Type]s that this component accepts. The [member value_type]
-## of any [GGSSetting] assigned to this component must be in this array.
+## Value type(s) that are compatible with this component.
 var compatible_types: Array[Variant.Type] = []
 
 
 func _get_configuration_warnings() -> PackedStringArray:
 	if setting == null:
-		return [WARNING_NO_SETTING]
+		return [_WARNING_NO_SETTING]
 
 	var warnings: PackedStringArray
 	if (
 		setting.resource_path.is_empty()
-		or not setting.resource_path.begins_with(GGS.settings_dir)
+		or not setting.resource_path.begins_with(GGS.plugin_settings.settings_directory)
 	):
-		warnings.append(WARNING_INVALID)
+		warnings.append(_WARNING_INVALID)
 
 	if setting.key.is_empty():
-		warnings.append(WARNING_EMPTY_KEY)
+		warnings.append(_WARNING_EMPTY_KEY)
 
 	if (
 		not compatible_types.is_empty()
 		and not compatible_types.has(setting.value_type)
 	):
-		warnings.append(WARNING_INCOMPATIBLE_SETTING)
+		warnings.append(_WARNING_INCOMPATIBLE_SETTING)
 
 	return warnings
 
 
 func _set_setting(value: GGSSetting) -> void:
+	# Disconnect signal of the previous setting
 	if (
 		setting != null
 		and setting.changed.is_connected(_on_setting_resource_changed)
@@ -63,32 +57,44 @@ func _set_setting(value: GGSSetting) -> void:
 
 	setting = value
 	update_configuration_warnings()
-
 	if setting != null:
 		setting.changed.connect(_on_setting_resource_changed)
 
 
+func can_apply_on_changed() -> bool:
+	if override_plugin_settings:
+		return override_apply_on_changed
+	else:
+		return GGS.plugin_settings.components_apply_on_changed
+
+
+func can_grab_focus_on_mouseover() -> bool:
+	if override_plugin_settings:
+		return override_grab_focus_on_mouse_over
+	else:
+		return GGS.plugin_settings.components_grab_focus_on_mouse_over
+
+
 ## Saves the setting value to the save file and applies it to the game.
 func apply_setting() -> void:
-	GGS.set_value(setting, value)
+	GGSSaveManager.save_setting_value(setting, value)
+	GGS.setting_applied.emit(setting, value)
 	setting.apply(value)
 
 
-## Saves the default value of the setting to the save file and applies it
-## to the game, effectively reseting it.[br]
-## [settingResetBtn] calls this method to reset the associated settings.
+## Saves the default value of the setting to the save file and applies it to the game, effectively reseting it.[br]
+## A ResetBtn calls this method to reset its associated settings.
 func reset_setting() -> void:
-	GGS.set_value(setting, setting.default)
+	GGSSaveManager.save_setting_value(setting, setting.default)
+	GGS.setting_applied.emit(setting, value)
 	setting.apply(value)
 
 
-## Validates if the assigned [member setting] is valid and can be used with
-## no issues.
+## Validates if the assigned setting is valid and can be used with no issues.
 func validate_setting() -> bool:
 	if setting == null:
-		printerr("GGS - Get Setting Value (%s) - No setting is assigned."%name)
+		printerr("GGS::Get Setting Value (%s) - No setting is assigned."%name)
 		return false
-
 	return true
 
 
