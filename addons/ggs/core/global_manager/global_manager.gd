@@ -11,11 +11,8 @@ signal setting_applied(setting: GGSSetting, value: Variant)
 ## Audio players used to play the sound effect of the user interface components.
 @export_group("Audio Players")
 @export var audio_mouse_entered: AudioStreamPlayer
-@export var audio_mouse_exited: AudioStreamPlayer
 @export var audio_focus_entered: AudioStreamPlayer
-@export var audio_focus_exited: AudioStreamPlayer
-@export var audio_activation_succeeded: AudioStreamPlayer
-@export var audio_activation_failed: AudioStreamPlayer
+@export var audio_activated: AudioStreamPlayer
 
 
 func _ready() -> void:

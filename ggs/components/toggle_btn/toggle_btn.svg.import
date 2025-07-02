@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv0nul1sxpi7i"
-path="res://.godot/imported/spinbox.svg-13cf0e71e6ba3ecaa3a7fd9e04918fb1.ctex"
+uid="uid://c4cjgyjpd05pv"
+path="res://.godot/imported/toggle_btn.svg-908b50bbad233e51a020f8561ae45b82.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/ggs/common/spinbox.svg"
-dest_files=["res://.godot/imported/spinbox.svg-13cf0e71e6ba3ecaa3a7fd9e04918fb1.ctex"]
+source_file="res://ggs/components/toggle_btn/toggle_btn.svg"
+dest_files=["res://.godot/imported/toggle_btn.svg-908b50bbad233e51a020f8561ae45b82.ctex"]
 
 [params]
 

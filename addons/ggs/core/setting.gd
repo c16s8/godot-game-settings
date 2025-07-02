@@ -41,7 +41,7 @@ func _get_property_list() -> Array:
 func _set_default(value: Variant) -> void:
 	default = value
 
-	if not key.is_empty():
+	if Engine.is_editor_hint() and not key.is_empty():
 		GGSSaveManager.save_setting_value(self, value)
 
 

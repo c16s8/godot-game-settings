@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j6pcn2avkysi"
-path="res://.godot/imported/slider.svg-6151bc4710b1ecd7af577ae3b2132ec1.ctex"
+uid="uid://csyligm2xb7r3"
+path="res://.godot/imported/option_list.svg-9a79a50e7c5c551a99ac7aeb8d13e560.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/ggs/common/slider.svg"
-dest_files=["res://.godot/imported/slider.svg-6151bc4710b1ecd7af577ae3b2132ec1.ctex"]
+source_file="res://ggs/components/option_list/option_list.svg"
+dest_files=["res://.godot/imported/option_list.svg-9a79a50e7c5c551a99ac7aeb8d13e560.ctex"]
 
 [params]
 

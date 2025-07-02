@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3tisg7ksch0r"
-path="res://.godot/imported/base_node.svg-716d9b35fa691a00b603d731923b7cbf.ctex"
+uid="uid://dwd05hntm3p3x"
+path="res://.godot/imported/text_field.svg-221ab179124a5df4e4ceb3b3aca5af96.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/ggs/common/base_node.svg"
-dest_files=["res://.godot/imported/base_node.svg-716d9b35fa691a00b603d731923b7cbf.ctex"]
+source_file="res://ggs/components/text_field/text_field.svg"
+dest_files=["res://.godot/imported/text_field.svg-221ab179124a5df4e4ceb3b3aca5af96.ctex"]
 
 [params]
 

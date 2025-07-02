@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfvtvylsulxgf"
-path="res://.godot/imported/radio_list.svg-e70a1b7f2f67e5eeda796d4a93cb5b6c.ctex"
+uid="uid://bn1m6etm3ivk6"
+path="res://.godot/imported/switch.svg-eed4323ad3e44db3c19d023c9c3db034.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/ggs/common/radio_list.svg"
-dest_files=["res://.godot/imported/radio_list.svg-e70a1b7f2f67e5eeda796d4a93cb5b6c.ctex"]
+source_file="res://ggs/components/switch/switch.svg"
+dest_files=["res://.godot/imported/switch.svg-eed4323ad3e44db3c19d023c9c3db034.ctex"]
 
 [params]
 

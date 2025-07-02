@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SettingDisplayScale" load_steps=2 format=3 uid="uid://dhhg0qhb13erq"]
+
+[ext_resource type="Script" uid="uid://p5dvt3a5jrcl" path="res://ggs/scripts/display/setting_display_scale.gd" id="1_ristk"]
+
+[resource]
+resource_name = "display_scale"
+script = ExtResource("1_ristk")
+scales = Array[float]([0.5, 1.0, 1.5])
+key = "display_scale"
+section = "display"
+default = 1
+metadata/_custom_type_script = "uid://p5dvt3a5jrcl"

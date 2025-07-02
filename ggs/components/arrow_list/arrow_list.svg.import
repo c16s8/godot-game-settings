@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0jkq30mvtqti"
-path="res://.godot/imported/reset_btn.svg-49bfdeb7b2e5634584fc24c6b2d959bf.ctex"
+uid="uid://d0566jcvm0uxg"
+path="res://.godot/imported/arrow_list.svg-d5e66a38aac7e905005f5c7bf982014b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/ggs/common/reset_btn.svg"
-dest_files=["res://.godot/imported/reset_btn.svg-49bfdeb7b2e5634584fc24c6b2d959bf.ctex"]
+source_file="res://ggs/components/arrow_list/arrow_list.svg"
+dest_files=["res://.godot/imported/arrow_list.svg-d5e66a38aac7e905005f5c7bf982014b.ctex"]
 
 [params]
 
