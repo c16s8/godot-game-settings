@@ -1,13 +1,15 @@
-@icon("res://addons/ggs/plugin/assets/reset_btn.svg")
+@tool
+@icon("res://ggs/components/reset_btn/reset_btn.svg")
 extends Button
 
-## Node group associated with the button. When pressed, the button calls
-## [method ggsComponent.reset_setting] on all nodes in this node group.
+## Node group associated with the button. When pressed, the button calls [method GGSComponent.reset_setting] on
+## all nodes in this node group.
 @export var group: String
 
-## If true, the main control(s) of the component will grab focus when
-## mouse enters it.
-@export var grab_focus_on_mouse_over: bool
+@export_group("Override", "override_")
+## If enabled, plugin settings can be overriden for this specific component.
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "feature") var override_plugin_settings: bool = false : set = _set_override_plugin_settings
+@export var override_grab_focus_on_mouseover: bool = false
 
 
 func _ready() -> void:
@@ -16,17 +18,29 @@ func _ready() -> void:
 	focus_entered.connect(_on_focus_entered)
 
 
+func _set_override_plugin_settings(value: bool) -> void:
+	override_plugin_settings = value
+	if not override_plugin_settings:
+		override_grab_focus_on_mouseover = false
+
+
+func _can_grab_focus_on_mouseover() -> bool:
+	if override_plugin_settings:
+		return override_grab_focus_on_mouseover
+	else:
+		return GGS.plugin_settings.components_grab_focus_on_mouseover
+
+
 func _on_pressed() -> void:
 	get_tree().call_group(group, "reset_setting")
-	GGS.Audio.Interact.play()
+	GGS.audio_activated.play()
 
 
 func _on_mouse_entered() -> void:
-	GGS.Audio.MouseEntered.play()
-
-	if grab_focus_on_mouse_over:
+	GGS.audio_mouse_entered.play()
+	if _can_grab_focus_on_mouseover():
 		grab_focus()
 
 
 func _on_focus_entered() -> void:
-	GGS.Audio.FocusEntered.play()
+	GGS.audio_focus_entered.play()

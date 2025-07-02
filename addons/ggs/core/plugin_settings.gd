@@ -20,7 +20,7 @@ class_name GGSPluginSettings
 ## If true, the setting is applied when components are activated successfully. Otherwise, an ApplyBtn component is required.
 @export var components_apply_on_changed: bool = true
 ## If true, the main control node(s) of components will grab focus on mouse over.
-@export var components_grab_focus_on_mouse_over: bool = true
+@export var components_grab_focus_on_mouseover: bool = true
 
 @export_subgroup("Input Button", "input_btn_")
 ## The time the input component listens for input before automatically stopping.

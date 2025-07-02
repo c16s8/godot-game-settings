@@ -1,3 +1,4 @@
+@tool
 @icon("res://ggs/components/apply_btn/apply_btn.svg")
 extends Button
 
@@ -7,8 +8,8 @@ extends Button
 
 @export_group("Override", "override_")
 ## If enabled, plugin settings can be overriden for this specific component.
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "feature") var override_plugin_settings: bool = false
-@export var override_grab_focus_on_mouse_over: bool = false
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "feature") var override_plugin_settings: bool = false : set = _set_override_plugin_settings
+@export var override_grab_focus_on_mouseover: bool = false
 
 
 func _ready() -> void:
@@ -17,11 +18,17 @@ func _ready() -> void:
 	focus_entered.connect(_on_focus_entered)
 
 
+func _set_override_plugin_settings(value: bool) -> void:
+	override_plugin_settings = value
+	if not override_plugin_settings:
+		override_grab_focus_on_mouseover = false
+
+
 func _can_grab_focus_on_mouseover() -> bool:
 	if override_plugin_settings:
-		return override_grab_focus_on_mouse_over
+		return override_grab_focus_on_mouseover
 	else:
-		return GGS.plugin_settings.components_grab_focus_on_mouse_over
+		return GGS.plugin_settings.components_grab_focus_on_mouseover
 
 
 func _on_pressed() -> void:
