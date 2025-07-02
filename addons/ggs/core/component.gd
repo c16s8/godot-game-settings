@@ -40,7 +40,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 	if (
 		not compatible_types.is_empty()
-		and not compatible_types.has(setting.value_type)
+		and not compatible_types.has(setting.type)
 	):
 		warnings.append(_WARNING_INCOMPATIBLE_SETTING)
 
@@ -95,14 +95,6 @@ func reset_setting() -> void:
 	GGSSaveManager.save_setting_value(setting, setting.default)
 	GGS.setting_applied.emit(setting, value)
 	setting.apply(value)
-
-
-## Validates if the assigned setting is valid and can be used with no issues.
-func validate_setting() -> bool:
-	if setting == null:
-		printerr("GGS::Get Setting Value (%s) - No setting is assigned."%name)
-		return false
-	return true
 
 
 func _on_setting_resource_changed() -> void:

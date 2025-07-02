@@ -121,7 +121,7 @@ static func action_get_events(action: String) -> Array:
 ## The returned text for joypad events depends on the joypad device selected in the plugin settings.
 static func event_get_text(event: InputEvent) -> String:
 	var text: String = "INVALID EVENT"
-	var db: GGSInputTextDB = load(GGS.plugin_settings.text_db)
+	var db: GGSInputTextDB = GGS.plugin_settings.text_db
 
 	if event is InputEventKey:
 		var keycode_with_modifiers: int = event.get_physical_keycode_with_modifiers()
@@ -148,7 +148,7 @@ static func event_get_text(event: InputEvent) -> String:
 ## Returns an image representation of the event. Uses  the [GGSInputGlyphDB] selected in the plugin settings for its image data.
 ## The returned image for joypad events depends on the joypad device selected in the plugin settings.
 static func event_get_glyph(event: InputEvent) -> Texture2D:
-	var db: GGSInputGlyphDB = load(GGS.plugin_settings.glyph_db)
+	var db: GGSInputGlyphDB = GGS.plugin_settings.glyph_db
 	var glyph: Texture2D = null
 
 	if event is InputEventMouseButton:
@@ -179,7 +179,10 @@ static func _event_get_modifiers_string(event: InputEventWithModifiers) -> Strin
 	if event.alt_pressed:
 		modifiers.append("Alt")
 
-	return "+".join(modifiers)
+	if modifiers.is_empty():
+		return ""
+	else:
+		return "+".join(modifiers) + "+"
 
 
 static func _event_get_axis_direction(event: InputEventJoypadMotion) -> AxisDirection:

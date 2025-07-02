@@ -11,9 +11,9 @@ class_name GGSPluginSettings
 ## Text and glyphs will be shown in this layout if the connected joypad device is not recognized.
 @export_enum("Xbox","Playstation","Switch") var joypad_fallback_layout: String = "Xbox"
 ## Path to the [GGSInputTextDB] that should be used for text data.
-@export_file("*.tres") var text_db: String = "res://ggs/plugin/default_text_db.tres"
+@export var text_db: GGSInputTextDB
 ## Path to the [GGSInputGlyphDB] that should be used for image data.
-@export_file("*.tres") var glyph_db: String = "res://ggs/plugin/default_glyph_db.tres"
+@export var glyph_db: GGSInputGlyphDB
 
 
 @export_group("Components", "components_")
@@ -31,5 +31,5 @@ class_name GGSPluginSettings
 ## prevent the users from using modifiers.
 @export_range(0.001, 4096, 0.001, "exp", "suffix:s") var input_btn_accept_delay: float = 0.33
 
-## The delay between each animation frame when the input component is listening. Higher values mean slower animation.
-@export var input_btn_anim_frame_delay: float = 1.5
+## The duration of one loop of the input button listening state animation. Higher values mean slower animation.
+@export_range(0.001, 4096, 0.001, "exp", "suffix:s") var input_btn_anim_duration: float = 1.5

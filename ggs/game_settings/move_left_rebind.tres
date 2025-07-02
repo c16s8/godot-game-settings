@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SettingInputRebind" load_steps=2 format=3 uid="uid://b7f1ma55uee0o"]
+
+[ext_resource type="Script" uid="uid://bru1qejws0quq" path="res://ggs/scripts/setting_input_rebind.gd" id="1_n7u3h"]
+
+[resource]
+resource_name = "move_left_kb"
+script = ExtResource("1_n7u3h")
+action = "move_left"
+event_index = 0
+key = "move_left_kb"
+section = "input"
+default = [0, 65, 0]
+metadata/_custom_type_script = "uid://bru1qejws0quq"
