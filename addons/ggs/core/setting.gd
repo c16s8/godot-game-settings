@@ -5,10 +5,10 @@ class_name GGSSetting
 ## A game setting is a resource that contains the necessary information for a specific game
 ## setting such as its default value or its script.
 
-## The key name used to save and load the value from the save file.
-@export var key: String = "" : set = _set_key
+## The key name used to save and load the value. The setting will not be saved if this is empty.
+@export var key: String = "": set = _set_key
 
-## The section name used to save and load the value from the save file.
+## The section name used to save and load the value. It can be empty.
 @export var section: String = ""
 
 ## Default value of the setting.
@@ -40,7 +40,6 @@ func _get_property_list() -> Array:
 
 func _set_default(value: Variant) -> void:
 	default = value
-
 	if Engine.is_editor_hint() and not key.is_empty():
 		GGSSaveManager.save_setting_value(self, value)
 

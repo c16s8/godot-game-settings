@@ -8,5 +8,4 @@
 script = ExtResource("1_677d5")
 text_db = ExtResource("3_tnt32")
 glyph_db = ExtResource("1_xdksr")
-components_grab_focus_on_mouseover = null
 metadata/_custom_type_script = "uid://bnm32mu5imjv0"

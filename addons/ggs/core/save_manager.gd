@@ -18,11 +18,11 @@ static func load_setting_value(setting: GGSSetting) -> Variant:
 	return file.get_value(setting.section, setting.key, setting.default)
 
 
-## Gets all settings in located in the settings directory (recursive).
+## Gets all settings located in the settings directory (recursive).
 static func get_all_settings() -> Array[GGSSetting]:
 	var result: Array[GGSSetting]
 	
-	var settings: PackedStringArray = _get_dir_settings(GGS.plugin_settings.settings_directory)
+	var settings: PackedStringArray = _get_settings_in_dir(GGS.plugin_settings.settings_directory)
 	for setting: String in settings:
 		# ".remap" is trimmed to prevent resource loader errors when the project is exported.
 		var obj: Resource = load(setting.trim_suffix(".remap"))
@@ -39,7 +39,7 @@ static func clean_up_file() -> void:
 	var file: ConfigFile = _get_file()
 
 	# 1. Save the current keys in a temp variable for later.
-	var temp: Dictionary
+	var temp: Dictionary[String, Dictionary]
 	for section: String in file.get_sections():
 		temp[section] = {}
 		for key: String in file.get_section_keys(section):
@@ -75,12 +75,12 @@ static func _get_file() -> ConfigFile:
 	return file
 
 
-static func _get_dir_settings(path: String) -> PackedStringArray:
+static func _get_settings_in_dir(path: String) -> PackedStringArray:
 	var result: PackedStringArray
 	var dir_access: DirAccess = DirAccess.open(path)
 
 	for file: String in dir_access.get_files():
-		if file.get_extension() == "gd" or file.get_extension() == "uid":
+		if file.get_extension() != "tres":
 			continue
 
 		var file_path: String = path.path_join(file)
@@ -88,7 +88,7 @@ static func _get_dir_settings(path: String) -> PackedStringArray:
 
 	for dir: String in dir_access.get_directories():
 		var dir_path: String = path.path_join(dir)
-		var dir_settings: PackedStringArray = _get_dir_settings(dir_path)
+		var dir_settings: PackedStringArray = _get_settings_in_dir(dir_path)
 		result.append_array(dir_settings)
 
 	return result

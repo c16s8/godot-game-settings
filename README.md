@@ -12,9 +12,11 @@ View the [documentation](https://punchableplushie.github.io/godot-game-settings-
 </p>
 
 ## Changelog
+
 **3.3.0** is a small update primarily ensuring compatibility with Godot 4.5. It also comes with small feature revisions.
 
 ### 3.3.0
+
 - Updated for Godot 4.5.
 - Improved how the glyph database entries are exported.
 - Added a text database resource which allows customizing the text data used for converting mouse and joypad input events into text.
@@ -25,4 +27,7 @@ View the [documentation](https://punchableplushie.github.io/godot-game-settings-
 - Added global settings for `apply_on_changed` and `grab_focus_on_mouseover` component properties. Individual component instances can override this if needed.
 - Plugin settings is now a resource saved on disc instead of being part of the main singleton.
 - Moved setting scripts and components outside of the plugin directory to allow users to use them from the "Quick Load" window without having to toggle the "Addons" filtering option.
+- Added a vsync toggle setting.
+- Added a max FPS setting.
+- Changed display fullscreen setting to allow changing between borderless and exclusive fullscreen modes. The setting is renamed to "display mode".
 - Other general codebase improvements.

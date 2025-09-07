@@ -1,7 +1,7 @@
 @tool
 extends GGSSetting
 class_name SettingInputRebind
-## Rebinds a specific input event of a specific input action.
+## Rebinds the chosen input event of a specific input action.
 
 ## The action to be rebinded.
 var action: String: set = _set_action
@@ -26,8 +26,9 @@ func _get_property_list() -> Array:
 		{
 			"name": "event_index",
 			"type": TYPE_INT,
+			"usage": _get_usage(),
 			"hint": PROPERTY_HINT_ENUM,
-			"hint_string": ",".join(_get_action_event_list()),
+			"hint_string": ",".join(_get_event_list()),
 		},
 	]
 
@@ -40,8 +41,12 @@ func _set_action(value: String) -> void:
 
 func _set_event_index(value: int) -> void:
 	event_index = value
-	var target_event: InputEvent = GGSInputUtils.action_get_events(action)[value]
-	default = GGSInputUtils.serialize_event(target_event)
+
+	var events: Array = GGSInputUtils.action_get_events(action)
+	if events.is_empty():
+		default = []
+		return
+	default = GGSInputUtils.serialize_event(events[value])
 
 
 func apply(value: Array) -> void:
@@ -56,14 +61,26 @@ func apply(value: Array) -> void:
 		InputMap.action_add_event(action, input_event)
 
 
-func _get_action_event_list() -> PackedStringArray:
+func _get_usage() -> int:
+	if action.is_empty() or GGSInputUtils.action_get_events(action).is_empty():
+		return PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_READ_ONLY
+	else:
+		return PROPERTY_USAGE_DEFAULT
+
+
+func _get_event_list() -> PackedStringArray:
 	if action.is_empty():
-		return []
+		return ["No action is selected."]
+	
+	var events: Array = GGSInputUtils.action_get_events(action)
+	if events.is_empty():
+		return ["Selected action has no events."]
 
 	var event_names: PackedStringArray
-	var events: Array = GGSInputUtils.action_get_events(action)
+	var event_idx: int = 0
 	for event: InputEvent in events:
 		var event_text: String = GGSInputUtils.event_get_text(event)
-		event_names.append(event_text)
-
+		event_names.append("%d. %s" % [event_idx, event_text])
+		event_idx += 1
+	
 	return event_names

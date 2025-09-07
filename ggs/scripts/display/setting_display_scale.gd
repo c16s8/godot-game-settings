@@ -35,5 +35,5 @@ func apply(value: int) -> void:
 func _get_scale_strings() -> PackedStringArray:
 	var result: PackedStringArray = []
 	for scale: float in scales:
-		result.append("x%s"%[scale])
+		result.append("x%s" % [scale])
 	return result

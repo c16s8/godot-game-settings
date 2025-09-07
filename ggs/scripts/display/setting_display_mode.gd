@@ -1,24 +1,28 @@
 @tool
 extends GGSSetting
-class_name SettingDisplayFullscreen
-## Toggles window fullscreen mode.
+class_name SettingDisplayMode
+## Changes display mode between fullscreen, borderless, and windowed.
 
-## A setting that can handle window size. Used to set the game window to the correct size after its fullscreen state changes.
+## A setting that can handle window size. Used to set the game window to the correct size after its state changes.
 @export var size_setting: GGSSetting
 
 
 func _init() -> void:
-	type = TYPE_BOOL
-	default = false
+	type = TYPE_INT
+	hint = PROPERTY_HINT_ENUM
+	hint_string = "Fullscreen,Borderless,Windowed"
+	default = 2
 	section = "display"
 
 
-func apply(value: bool) -> void:
+func apply(value: int) -> void:
 	var window_mode: DisplayServer.WindowMode
 	match value:
-		true:
+		0:
 			window_mode = DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
-		false:
+		1:
+			window_mode = DisplayServer.WINDOW_MODE_FULLSCREEN
+		2:
 			window_mode = DisplayServer.WINDOW_MODE_WINDOWED
 	DisplayServer.window_set_mode(window_mode)
 
