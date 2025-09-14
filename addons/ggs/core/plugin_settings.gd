@@ -1,15 +1,14 @@
 @tool
 extends Resource
 class_name GGSPluginSettings
-## Resource class for storing and managing GGS settings.
+## Resource for storing and managing GGS plugin settings.
 
 ## The directory where the game setting resources are located.
 @export_dir var settings_directory: String = "res://ggs/game_settings"
 
-
 @export_group("Input")
 ## Text and glyphs will be shown in this layout if the connected joypad device is not recognized.
-@export_enum("Xbox","Playstation","Switch") var joypad_fallback_layout: String = "Xbox"
+@export_enum("Xbox", "Playstation", "Switch") var joypad_fallback_layout: String = "Xbox"
 ## Path to the [GGSInputTextDB] that should be used for text data.
 @export var text_db: GGSInputTextDB
 ## Path to the [GGSInputGlyphDB] that should be used for image data.

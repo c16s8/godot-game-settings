@@ -8,7 +8,7 @@ signal setting_applied(setting: GGSSetting, value: Variant)
 ## The plug settings instance that should be used
 @export var plugin_settings: GGSPluginSettings
 
-## Audio players used to play the sound effect of the user interface components.
+## Audio players used to play the sound effects of the user interface components.
 @export_group("Audio Players")
 @export var audio_mouse_entered: AudioStreamPlayer
 @export var audio_focus_entered: AudioStreamPlayer
@@ -24,5 +24,5 @@ func _ready() -> void:
 func _apply_all() -> void:
 	for setting: GGSSetting in GGSSaveManager.get_all_settings():
 		var value: Variant = GGSSaveManager.load_setting_value(setting)
-		setting_applied.emit(setting, value)
 		setting.apply(value)
+		setting_applied.emit(setting, value)

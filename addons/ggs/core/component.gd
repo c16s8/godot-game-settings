@@ -14,12 +14,13 @@ const _WARNING_INCOMPATIBLE_SETTING: String = "The type of the assigned setting 
 
 @export_group("Override", "override_")
 ## If enabled, plugin settings can be overriden for this specific component.
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "feature") var override_plugin_settings: bool = false : set = _set_override_plugin_settings
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "feature") var override_plugin_settings: bool = false: set = _set_override_plugin_settings
 @export var override_apply_on_changed: bool = false
 @export var override_grab_focus_on_mouseover: bool = false
 
 ## The current value of the setting associated with this component.
 var value: Variant
+
 ## Value type(s) that are compatible with this component.
 var compatible_types: Array[Variant.Type] = []
 
@@ -68,6 +69,7 @@ func _set_override_plugin_settings(value: bool) -> void:
 		override_grab_focus_on_mouseover = false
 
 
+## Whether the setting should be applied on value change, depending on the override value.
 func can_apply_on_changed() -> bool:
 	if override_plugin_settings:
 		return override_apply_on_changed
@@ -75,6 +77,7 @@ func can_apply_on_changed() -> bool:
 		return GGS.plugin_settings.components_apply_on_changed
 
 
+## Whether the component should grab focus on mouseover, depending on the override value.
 func can_grab_focus_on_mouseover() -> bool:
 	if override_plugin_settings:
 		return override_grab_focus_on_mouseover
@@ -82,7 +85,8 @@ func can_grab_focus_on_mouseover() -> bool:
 		return GGS.plugin_settings.components_grab_focus_on_mouseover
 
 
-## Saves the setting value to the save file and applies it to the game.
+## Saves the setting value to the save file and applies it to the game.[[br]
+## An ApplyBtn calls this method to apply its associated settings.
 func apply_setting() -> void:
 	GGSSaveManager.save_setting_value(setting, value)
 	GGS.setting_applied.emit(setting, value)

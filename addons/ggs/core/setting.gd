@@ -2,8 +2,8 @@
 @abstract
 extends Resource
 class_name GGSSetting
-## A game setting is a resource that contains the necessary information for a specific game
-## setting such as its default value or its script.
+## Resource that contains the necessary information for a specific game setting such as its default
+## value or its script.
 
 ## The key name used to save and load the value. The setting will not be saved if this is empty.
 @export var key: String = "": set = _set_key
