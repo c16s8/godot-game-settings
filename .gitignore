@@ -1,2 +1,10 @@
-# Godot 4+ specific ignores
+# Godot specific ignores
 .godot/
+
+# Text Editor/IDE specific ignores
+.vscode/
+.idea/
+
+# Project specific ignores
+test/
+export_presets.cfg

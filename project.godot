@@ -12,8 +12,8 @@ config_version=5
 
 config/name="Godot Game Settings"
 config/description="Create and manage game settings in Godot Engine."
-config/version="3.2.3"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/version="3.3"
+config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [audio]
@@ -22,23 +22,16 @@ buses/default_bus_layout=""
 
 [autoload]
 
-GGS="*res://addons/ggs/plugin/singleton/ggs.tscn"
+GGS="*res://addons/ggs/core/global_manager/global_manager.tscn"
 
 [debug]
 
 gdscript/warnings/untyped_declaration=1
-gdscript/warnings/inferred_declaration=1
-gdscript/warnings/unsafe_property_access=1
-gdscript/warnings/unsafe_method_access=1
-gdscript/warnings/unsafe_cast=1
-gdscript/warnings/unsafe_call_argument=1
-gdscript/warnings/return_value_discarded=1
-gdscript/warnings/inference_on_variant=1
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=640
+window/size/viewport_height=360
 window/size/resizable=false
 window/stretch/mode="canvas_items"
 
@@ -53,6 +46,25 @@ enabled=PackedStringArray("res://addons/ggs/plugin.cfg")
 [filesystem]
 
 import/blender/enabled=false
+
+[input]
+
+move_left={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":97,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":0,"axis_value":-1.0,"script":null)
+]
+}
+move_right={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"location":0,"echo":false,"script":null)
+]
+}
+move_up={
+"deadzone": 0.2,
+"events": []
+}
 
 [internationalization]
 

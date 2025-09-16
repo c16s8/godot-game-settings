@@ -1,6 +1,9 @@
 # Godot Game Settings (GGS)
 
-Godot Game Settings allows you to create and manage game settings for small to medium projects. It takes care of all the fundamental functionalities required to have proper game settings, including predefined logic for common settings (e.g. display, audio, input), UI components for making scenes, and saving/loading data.
+> [!Note]
+> Update 3.3.0 is currently in progress and is built using Godot 4.5 pre-release builds. It'll be officially ready after the official release of Godot 4.5.
+
+Godot Game Settings allows you to create and manage game settings for small to medium sized projects. It includes predefined logic for common game settings (display, audio, input) in addition to a framework for creating and managing custom settings and user interface components.
 
 View the [documentation](https://punchableplushie.github.io/godot-game-settings-docs) for information on how to use the plugin.
 
@@ -8,27 +11,23 @@ View the [documentation](https://punchableplushie.github.io/godot-game-settings-
 	<img src="https://i.postimg.cc/cCGPB9Kt/ggs-icon.png" alt="GGS icon">
 </p>
 
-## 3.2.3
+## Changelog
 
-- Fix fullscreen setting not having windowed mode.
+**3.3.0** is a small update primarily ensuring compatibility with Godot 4.5. It also comes with small feature revisions.
 
-## 3.2.2
+### 3.3.0
 
-- Fix a type error in the fullscreen setting.
-- Change the fullscreen setting to use exclusive fullscreen mode instead.
-
-## 3.2.1
-
-- Fix `EditorInterface` parse error when the project is exported.
-- Fix resource loader errors when hte project is exported.
-
-## 3.2.0
-
-This version mainly ported the plugin to Godot 4.3 along adding other small improvements.
-
-- Made compatible with Godot 4.3.
-- The plugin no longer features an editor. All operations are done through Godot editor itself.
-- Several code improvements, including using doc comments to generate documentation inside the editor.
-- Unique icons for components, making them easier to distinguish when making a setting menu.
-- Small improvements to the custom property inspectors.
-- New icon.
+- Updated for Godot 4.5.
+- Improved how the glyph database entries are exported.
+- Added a text database resource which allows customizing the text data used for converting mouse and joypad input events into text.
+- The name and extension of the save file can no longer be changed.
+- Type, hint, and hint string of a setting value can no longer be changed from the editor and should be set in its script instead.
+- Removed the ability to use IDs instead of indices from all list components.
+- Added the option to disable selection wrapping for arrow lists.
+- Added global settings for `apply_on_changed` and `grab_focus_on_mouseover` component properties. Individual component instances can override this if needed.
+- Plugin settings is now a resource saved on disc instead of being part of the main singleton.
+- Moved setting scripts and components outside of the plugin directory to allow users to use them from the "Quick Load" window without having to toggle the "Addons" filtering option.
+- Added a vsync toggle setting.
+- Added a max FPS setting.
+- Changed display fullscreen setting to allow changing between borderless and exclusive fullscreen modes. The setting is renamed to "display mode".
+- Other general codebase improvements.

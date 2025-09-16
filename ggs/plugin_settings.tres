@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GGSPluginSettings" load_steps=4 format=3 uid="uid://dhewfdfjnlrvc"]
+
+[ext_resource type="Script" uid="uid://dkp8812ehmesd" path="res://addons/ggs/core/plugin_settings.gd" id="1_677d5"]
+[ext_resource type="Resource" uid="uid://rnyvstcxehvv" path="res://ggs/default_glyph_db.tres" id="1_xdksr"]
+[ext_resource type="Resource" uid="uid://djbybuptgj4yj" path="res://ggs/default_text_db.tres" id="3_tnt32"]
+
+[resource]
+script = ExtResource("1_677d5")
+text_db = ExtResource("3_tnt32")
+glyph_db = ExtResource("1_xdksr")
+metadata/_custom_type_script = "uid://bnm32mu5imjv0"

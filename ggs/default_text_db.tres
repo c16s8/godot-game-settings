@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GGSInputTextDB" load_steps=2 format=3 uid="uid://djbybuptgj4yj"]
+
+[ext_resource type="Script" uid="uid://c8cf5jdbdd4d0" path="res://addons/ggs/core/input_databases/input_text_db.gd" id="1_3hkey"]
+
+[resource]
+script = ExtResource("1_3hkey")
+metadata/_custom_type_script = "uid://c8cf5jdbdd4d0"

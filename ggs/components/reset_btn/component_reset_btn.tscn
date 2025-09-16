@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfepxjl44fyqo"]
+
+[ext_resource type="Script" uid="uid://bh2lpbbt6w00j" path="res://ggs/components/reset_btn/component_reset_btn.gd" id="1_pchyd"]
+
+[node name="ResetBtn" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("1_pchyd")

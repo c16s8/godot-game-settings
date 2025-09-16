@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://esw7j7or7gpd"]
+
+[ext_resource type="Script" uid="uid://dh1wuc5ss3x1t" path="res://addons/ggs/core/global_manager/global_manager.gd" id="1_6v3cu"]
+[ext_resource type="Resource" uid="uid://dhewfdfjnlrvc" path="res://ggs/plugin_settings.tres" id="2_g5ayl"]
+
+[node name="GGS" type="Node" node_paths=PackedStringArray("audio_mouse_entered", "audio_focus_entered", "audio_activated")]
+script = ExtResource("1_6v3cu")
+plugin_settings = ExtResource("2_g5ayl")
+audio_mouse_entered = NodePath("Audio/MouseEntered")
+audio_focus_entered = NodePath("Audio/FocusEntered")
+audio_activated = NodePath("Audio/Activated")
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="MouseEntered" type="AudioStreamPlayer" parent="Audio"]
+
+[node name="FocusEntered" type="AudioStreamPlayer" parent="Audio"]
+
+[node name="Activated" type="AudioStreamPlayer" parent="Audio"]

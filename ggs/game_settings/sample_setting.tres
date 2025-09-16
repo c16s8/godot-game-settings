@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SettingDisplayMode" load_steps=2 format=3 uid="uid://cty14giu4etx8"]
+
+[ext_resource type="Script" uid="uid://brory0hphls2b" path="res://ggs/scripts/display/setting_display_mode.gd" id="1_c6rmd"]
+
+[resource]
+resource_name = "sample"
+script = ExtResource("1_c6rmd")
+key = "sample"
+section = "display"
+default = 2
