@@ -2,7 +2,7 @@
 @abstract
 extends MarginContainer
 class_name GGSComponent
-## A components is a control/user interface nodes that allow the user to change the value of its assigned setting.
+## A components is a control/user interface node that allow the user to change the value of its assigned setting.
 
 const _WARNING_NO_SETTING: String = "No setting is assigned."
 const _WARNING_INVALID: String = "The assigned setting is invalid. Ensure that it's save on disc and is in the settings directory."

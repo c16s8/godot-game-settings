@@ -186,7 +186,7 @@ static func _event_get_modifiers_string(event: InputEventWithModifiers) -> Strin
 
 
 static func _event_get_axis_direction(event: InputEventJoypadMotion) -> AxisDirection:
-	var axis_direction: int = sign(event.axis_value) 
+	var axis_direction: int = sign(event.axis_value)
 	return _AXIS_TO_DIRECTION[event.axis][axis_direction]
 
 
